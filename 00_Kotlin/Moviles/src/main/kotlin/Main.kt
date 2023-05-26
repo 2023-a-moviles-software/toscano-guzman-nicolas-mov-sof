@@ -50,6 +50,17 @@ fun main(args: Array<String>) {
     calcularSueldo(10.00, 12.00, 20.00)
     calcularSueldo(10.00, bonoEspecial = 20.00) //Paramateros nombrados
     calcularSueldo(bonoEspecial = 20.00, sueldo = 10.00, tasa = 14.00) //Parametros nombrados
+    val sumaUno = Suma(1,1)
+    val sumaDos = Suma(null, 1)
+    val sumaTres = Suma(1, null)
+    val sumaCuatro = Suma(null,null)
+    sumaUno.sumar()
+    sumaDos.sumar()
+    sumaTres.sumar()
+    sumaCuatro.sumar()
+    println(Suma.pi)
+    println(Suma.elevarAlCuadrado(2))
+    println(Suma.historialSumas)
 }
 
 abstract class NumerosJava {
@@ -82,6 +93,56 @@ abstract class Numeros(
     }
 }
 
+class Suma(
+    //Constructor Primario Suma
+    unoParametro: Int, //Parametro
+    dosParametro: Int, //Parametro
+) : Numeros(unoParametro, dosParametro) { //Extendiendo y mandando los parametros (super)
+
+    init {
+        this.numeroUno
+        this.numeroDos
+    }
+
+    //Segundo constructor
+    constructor(uno: Int?, dos: Int) : this(
+        if (uno == null) 0 else uno, dos
+    )
+
+    //Tercer constructor
+    constructor(uno: Int, dos: Int?) : this(
+        uno,
+        if (dos == null) 0 else dos
+    )
+
+    //Cuarto constructor
+    constructor(uno: Int?, dos: Int?) : this(
+        if (uno == null) 0 else uno,
+        if (dos == null) 0 else dos
+    )
+
+    public fun sumar(): Int {
+        val total = numeroDos + numeroUno
+        agregarHistorial(total) // this.agregarHistoria(total)
+        return total
+    }
+
+    companion object{ //Atributos y métodos "Compartidos" Singletons o Static de esta clase
+        // Todas las instancias de esta clase comparten estos atributos y metodos
+        // dentro del companion Object
+        val pi = 3.14
+        fun elevarAlCuadrado(num: Int): Int{
+            return num * num
+        }
+        val historialSumas = ArrayList<Int>()
+
+        fun agregarHistorial(valorNuevaSuma: Int){
+            historialSumas.add(valorNuevaSuma)
+        }
+
+    }
+
+}
 
 //void -> Unit
 
