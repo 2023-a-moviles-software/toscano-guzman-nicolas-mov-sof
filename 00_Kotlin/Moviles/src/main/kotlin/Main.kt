@@ -1,4 +1,5 @@
 import java.util.*
+import kotlin.collections.ArrayList
 
 fun main(args: Array<String>) {
     println("Hello World!")
@@ -50,10 +51,10 @@ fun main(args: Array<String>) {
     calcularSueldo(10.00, 12.00, 20.00)
     calcularSueldo(10.00, bonoEspecial = 20.00) //Paramateros nombrados
     calcularSueldo(bonoEspecial = 20.00, sueldo = 10.00, tasa = 14.00) //Parametros nombrados
-    val sumaUno = Suma(1,1)
+    val sumaUno = Suma(1, 1)
     val sumaDos = Suma(null, 1)
     val sumaTres = Suma(1, null)
-    val sumaCuatro = Suma(null,null)
+    val sumaCuatro = Suma(null, null)
     sumaUno.sumar()
     sumaDos.sumar()
     sumaTres.sumar()
@@ -61,6 +62,92 @@ fun main(args: Array<String>) {
     println(Suma.pi)
     println(Suma.elevarAlCuadrado(2))
     println(Suma.historialSumas)
+
+    //ARREGLOS
+
+    //Tipos de Arreglos
+
+    //Arreglo Estatico
+    val arregloEstatico: Array<Int> = arrayOf<Int>(1, 2, 3)
+    println(arregloEstatico)
+    //Arreglo Dinámico
+    val arregloDinamico: ArrayList<Int> = arrayListOf<Int>(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+
+    //OPERADORES -> Sirven para los arreglos estáticos y dinámicos
+    // For EACH -> Unit
+    // Iterar un arreglo
+    val respuestaForEach: Unit = arregloDinamico
+        .forEach { valorActual: Int ->
+            print("Valor actual: ${valorActual}")
+        }
+    arregloDinamico.forEach { println(it) } //it (en ingles eso) significa el elemento iterado
+
+    arregloEstatico
+        .forEachIndexed { indice: Int, valorActual: Int ->
+            print("Valor ${valorActual} Indice: ${indice}")
+        }
+    println(respuestaForEach)
+
+    // MAP -> Muta el arreglo (cambia el arreglo)
+    // 1) Enviemos el nuevo valor de la iteracion
+    // 2) Nos devuelve es un NUEVO ARREGLO con los valores modificados
+
+    val respuestaMap: List<Double> = arregloDinamico
+        .map { valorActual: Int ->
+            return@map valorActual.toDouble() + 100.00
+        }
+
+    println(respuestaMap)
+    val respuestaMapDos = arregloDinamico.map { it + 15 }
+    println(respuestaMapDos)
+
+    //Filter -> FILTRAR EL ARREGLO
+    //1) Devolver una expresion (TRUE o FALSE)
+    //2) Nuevo arreglo filtrado
+    val respuestaFilter: List<Int> = arregloDinamico
+        .filter { valorActual: Int ->
+            val mayoresACinco: Boolean = valorActual > 5 //Expresion condicion
+            return@filter mayoresACinco
+        }
+    val respuestaFilterDos = arregloDinamico.filter { it <= 5 }
+    println(respuestaFilter)
+    println(respuestaFilterDos)
+
+    //OR AND
+    // OR -> ANY (Alguna cumple?)
+    // AND -> ALL (Todos cumplen?)
+
+    val respuestaAny: Boolean = arregloDinamico
+        .any { valorActual: Int ->
+            return@any (valorActual > 5)
+        }
+    println(respuestaAny) //true
+
+    val respuestaAll: Boolean = arregloDinamico
+        .all { valorActual: Int ->
+            return@all (valorActual >5)
+        }
+    print(respuestaAll) //false
+
+    // REDUCE -> Valor acumulado
+    // Valor acumulado = 0 (siempre 0 en lenguaje Kotlin)
+    // [1, 2, 3, 4, 5] -> Sumeme todos los valores del arreglo
+    // valorIteracion1 = valorEmpieza + 1 = 0 + 1 = 1 -> Iteracion 1
+    // valorIteracion2 = valorEmpieza1 + 2 = 1 + 2 = 3 -> Iteracion 1
+    // valorIteracion3 = valorEmpieza2 + 3 = 3 + 3 = 6 -> Iteracion 1
+    // valorIteracion4 = valorEmpieza3 + 4 = 6 + 4 = 10 -> Iteracion 1
+    // valorIteracion5 = valorEmpieza4 + 5 = 10 + 5 = 15 -> Iteracion 1
+
+    val respuestaReduce: Int = arregloDinamico
+        .reduce { // acumulado = 0 -> SIEMPRE EMPIEZA EN 0
+                acumulado: Int, valorActual: Int ->
+            return@reduce (acumulado + valorActual) // -> Logica negocio
+        }
+    println(respuestaReduce) //78
+
+
+
+
 }
 
 abstract class NumerosJava {
@@ -127,16 +214,16 @@ class Suma(
         return total
     }
 
-    companion object{ //Atributos y métodos "Compartidos" Singletons o Static de esta clase
+    companion object { //Atributos y métodos "Compartidos" Singletons o Static de esta clase
         // Todas las instancias de esta clase comparten estos atributos y metodos
         // dentro del companion Object
         val pi = 3.14
-        fun elevarAlCuadrado(num: Int): Int{
+        fun elevarAlCuadrado(num: Int): Int {
             return num * num
         }
         val historialSumas = ArrayList<Int>()
 
-        fun agregarHistorial(valorNuevaSuma: Int){
+        fun agregarHistorial(valorNuevaSuma: Int) {
             historialSumas.add(valorNuevaSuma)
         }
 
