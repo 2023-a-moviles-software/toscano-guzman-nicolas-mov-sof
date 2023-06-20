@@ -3,5 +3,6 @@
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/00_Kotlin/Moviles" />
+    <file type="web" url="file://$PROJECT_DIR$/01-Android" />
   </component>
 </project>

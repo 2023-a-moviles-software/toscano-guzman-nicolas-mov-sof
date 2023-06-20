@@ -1,1 +1,9 @@
-[{"nombreEquipo":"champions","entrenador":"Pablito","fundacion":"Apr 12, 1234, 12:00:00 AM","titulosGanados":8,"ingresosTotales":123575.0}]
+[
+  {
+    "nombreEquipo": "Barcelona",
+    "entrenador": "Fabian",
+    "fundacion": "Apr 12, 1931, 12:00:00 AM",
+    "titulosGanados": 12,
+    "ingresosTotales": 1.2547343E7
+  }
+]

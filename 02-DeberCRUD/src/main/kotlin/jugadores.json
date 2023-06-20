@@ -1,26 +1,18 @@
 [
   {
-    "nombreJugador": "Nicolas",
-    "casado": false,
-    "edad": 23,
-    "altura": 1.23,
-    "posicion": "D",
-    "equipoDelJugador": "null"
-  },
-  {
-    "nombreJugador": "Sanch",
-    "casado": false,
-    "edad": 45,
-    "altura": 1.22,
-    "posicion": "D",
-    "equipoDelJugador": "champions"
-  },
-  {
-    "nombreJugador": "Sanch",
+    "nombreJugador": "Pablo",
     "casado": false,
     "edad": 45,
     "altura": 1.22,
     "posicion": "D",
     "equipoDelJugador": "null"
+  },
+  {
+    "nombreJugador": "Carlos",
+    "casado": false,
+    "edad": 15,
+    "altura": 1.67,
+    "posicion": "A",
+    "equipoDelJugador": "Barcelona"
   }
 ]
