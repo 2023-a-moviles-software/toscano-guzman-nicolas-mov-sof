@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace 'com.example.movilessoftware2023a'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.example.movilessoftware2023a"
-        minSdk 21
-        targetSdk 33
+        minSdk 24
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 

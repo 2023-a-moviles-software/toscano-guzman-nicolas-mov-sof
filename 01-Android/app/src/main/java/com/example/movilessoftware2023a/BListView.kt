@@ -1,5 +1,6 @@
 package com.example.movilessoftware2023a
 
+import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ContextMenu
@@ -9,6 +10,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
+import androidx.appcompat.app.AlertDialog
 
 class BListView : AppCompatActivity() {
     //Referencia del arreglo
@@ -42,6 +44,7 @@ class BListView : AppCompatActivity() {
                 return true
             }
             R.id.mi_eliminar -> {
+                abrirDialogo()
                 "Hacer algo con: ${idItemSeleccionado}"
                 return true
             }
@@ -49,6 +52,39 @@ class BListView : AppCompatActivity() {
                 -> super.onContextItemSelected(item)
         }
     }
+    fun abrirDialogo(){
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Desea eliminar?")
+        builder.setPositiveButton(
+            "Aceptar",
+            DialogInterface.OnClickListener{
+                dialog, which -> //ALGUNA COSA
+            }
+        )
+        builder.setNegativeButton("Cancelar", null)
+
+        val opciones = resources.getStringArray(
+            R.array.string_array_opciones_dialogo
+        )
+        val seleccionPrevia = booleanArrayOf(
+            true, //Lunes seleccionado
+            false, //Martes NO seleccionado
+            false //Miércoles NO seleccionado
+        )
+
+        builder.setMultiChoiceItems(
+            opciones,
+            seleccionPrevia,
+            {
+                dialog, which, isChecked ->
+                "Dio clic en el item ${which}"
+            }
+        )
+        val dialogo = builder.create()
+        dialogo.show()
+    }
+
+
 
     override fun onCreateContextMenu(
         menu: ContextMenu?,
