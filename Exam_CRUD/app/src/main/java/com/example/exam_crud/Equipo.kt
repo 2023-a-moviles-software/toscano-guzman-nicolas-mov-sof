@@ -11,7 +11,12 @@ class Equipo(
 ) {
 
     override fun toString(): String {
-        return "${id} - ${nombreEquipo} - ${fundacion} - ${titulosGanados} " +
-                "- ${ingresosTotales} - ${jugadorObtenido}"
+        return "${id} - ${nombreEquipo}"
+
+//        return "${id} - ${nombreEquipo} - ${fundacion} - ${titulosGanados} " +
+//                "- ${ingresosTotales} - ${jugadorObtenido}"
     }
+
+
+
 }

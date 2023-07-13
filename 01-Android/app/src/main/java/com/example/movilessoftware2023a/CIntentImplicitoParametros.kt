@@ -14,7 +14,7 @@ class CIntentImplicitoParametros : AppCompatActivity() {
         val edad: Int = intent.getIntExtra("edad",0)
         val boton = findViewById<Button>(R.id.btn_devolver_respuesta)
         boton.setOnClickListener{
-
+            devolverrespuesta()
         }
     }
 

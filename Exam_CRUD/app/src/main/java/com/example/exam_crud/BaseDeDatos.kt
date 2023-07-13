@@ -103,7 +103,7 @@ class BaseDeDatos {
                 )
             arregloEquipo
                 .add(
-                    Equipo(1, "Real Madrid", "2018-12-12", 12,
+                    Equipo(2, "Real Madrid", "2018-12-12", 12,
                         1500000.0, arregloJugadorRM)
                 )
             arregloEquipo
