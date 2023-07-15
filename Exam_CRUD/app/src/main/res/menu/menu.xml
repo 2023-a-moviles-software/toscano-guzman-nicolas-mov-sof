@@ -3,9 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/mi_VerJugadores"
-        android:title="Ver jugadores" />
-    <item
         android:id="@+id/mi_Editar"
         android:title="Editar" />
     <item

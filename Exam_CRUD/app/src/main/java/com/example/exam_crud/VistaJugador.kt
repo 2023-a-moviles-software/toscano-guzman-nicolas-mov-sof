@@ -10,62 +10,68 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
+import android.widget.TextView
 
-class VistaEquipo : AppCompatActivity() {
+class VistaJugador : AppCompatActivity() {
 
-    val arreglo = BaseDeDatos.arregloEquipo
-    var idItemSeleccionado = 0
+    private var equipoId: Int = 0
+    private var idItemSeleccionado = 0
 
-    private lateinit var adaptador: ArrayAdapter<Equipo>
+    private lateinit var tituloEquipo: TextView
+    private lateinit var equipo: Equipo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_vista_equipo)
+        setContentView(R.layout.activity_vista_jugador)
+        equipoId = intent.getIntExtra("idEquipo", 0)
 
-        val listView = findViewById<ListView>(R.id.listView_Equipo)
+        tituloEquipo = findViewById(R.id.tituloEquipo)
 
-        adaptador = ArrayAdapter(
+        equipo = BaseDeDatos.arregloEquipo.find { it.id == equipoId }!!
+
+
+        val listView = findViewById<ListView>(R.id.listView_equipo_completo)
+        tituloEquipo.text = equipo.nombreEquipo
+        val detalleEquipo = mutableListOf<String>()
+        detalleEquipo.add("Jugadores:")
+
+
+        for (jugador in equipo.jugadorObtenido) {
+            detalleEquipo.add(jugador.toString())
+        }
+        val adaptador = ArrayAdapter(
             this,
             android.R.layout.simple_list_item_1,
-            arreglo
+            // Convertir el equipo a una lista para el adaptador
+            detalleEquipo
         )
-
         listView.adapter = adaptador
-
-        listView.onItemClickListener =
-            AdapterView.OnItemClickListener { parent, view, position, id ->
-                val selectedItem = adaptador.getItem(position)
-                val idEquipo = selectedItem?.id
-                if (idEquipo != null) {
-                    irActividad(VistaJugador::class.java, idEquipo, position)
-                }
-            }
         adaptador.notifyDataSetChanged()
 
-        val botonCrearEquipo = findViewById<Button>(R.id.btn_crear_equipo)
+        val botonCrearEquipo = findViewById<Button>(R.id.btn_crear_jugador)
         botonCrearEquipo.setOnClickListener {
-            irActividad(CrearEquipo::class.java, -1, -1) // Utiliza valores distintos para el nuevo equipo
+            irActividad(CrearJugador::class.java, -1,-1)
         }
 
         registerForContextMenu(listView)
     }
-    fun irActividad(clase: Class<*>, idEquipo: Int, posicion: Int) {
+
+    private fun irActividad(clase: Class<*>, idEquipo: Int, posicion: Int) {
         val intent = Intent(this, clase)
         intent.putExtra("idEquipo", idEquipo)
         intent.putExtra("posicion", posicion) // Pasar la posición del equipo seleccionado
         startActivity(intent)
     }
 
-
     override fun onContextItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.mi_Editar -> {
-                val equipoId = idItemSeleccionado
+                val jugadorId = idItemSeleccionado
                 val intent = Intent(
                     this,
-                    EditarEquipo::class.java
+                    EditarJugador::class.java
                 )
-                intent.putExtra("equipoId",equipoId)
+                intent.putExtra("jugadorId", jugadorId)
                 startActivity(intent)
                 return true
             }
@@ -90,30 +96,22 @@ class VistaEquipo : AppCompatActivity() {
         val inflater = menuInflater
         inflater.inflate(R.menu.menu, menu)
         val info = menuInfo as AdapterView.AdapterContextMenuInfo
-        val menuId = arreglo[info.position].id
-        idItemSeleccionado = menuId
+        val id = info.id.toInt()
+        idItemSeleccionado = id
     }
 
-//    override fun onResume() {
-//        super.onResume()
-//        val posicionActualizada = intent.getIntExtra("posicion", -1)
-//        if (posicionActualizada != -1) {
-//
-//            adaptador.notifyDataSetChanged() // Actualizar solo el elemento en la posición indicada
-//        }
-//    }
-//
-//    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-//        super.onRestoreInstanceState(savedInstanceState)
-//        idItemSeleccionado = savedInstanceState.getInt("idItemSeleccionado")
-//    }
-
-    fun actualizarListaEquipos() {
-        val listView = findViewById<ListView>(R.id.listView_Equipo)
+    private fun actualizarListaJugadores() {
+        val listView = findViewById<ListView>(R.id.listView_equipo_completo)
+        tituloEquipo.text = equipo.nombreEquipo
+        val detalleEquipo = mutableListOf<String>()
+        detalleEquipo.add("Jugadores:")
+        for (jugador in equipo.jugadorObtenido) {
+            detalleEquipo.add(jugador.toString())
+        }
         val adaptador = ArrayAdapter(
             this,
             android.R.layout.simple_list_item_1,
-            arreglo
+            detalleEquipo
         )
         listView.adapter = adaptador
         adaptador.notifyDataSetChanged()
@@ -121,13 +119,11 @@ class VistaEquipo : AppCompatActivity() {
 
     override fun onRestart() {
         super.onRestart()
-        actualizarListaEquipos()
+        actualizarListaJugadores()
     }
 
     override fun onResume() {
         super.onResume()
-        actualizarListaEquipos()
+        actualizarListaJugadores()
     }
-
 }
-

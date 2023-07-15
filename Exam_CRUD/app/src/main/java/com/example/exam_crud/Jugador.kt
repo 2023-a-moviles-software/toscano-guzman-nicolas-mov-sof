@@ -10,7 +10,15 @@ class Jugador(
     var equipoJugador: String?
 ) {
     override fun toString(): String {
-        return "${id} - ${nombreJugador} - ${casado} - ${edad} " +
+        var casadoString: String?
+
+        if(casado == true){
+            casadoString = "Casado"
+        }else{
+            casadoString = "Soltero"
+        }
+
+        return "${id} - ${nombreJugador} - ${casadoString} - ${edad} " +
                 "- ${altura} - ${posicion} - ${equipoJugador}"
     }
 }
