@@ -6,29 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".CrearJugador">
 
-    <TextView
-        android:id="@+id/tituloJugadorACrear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="76dp"
-        android:text="Crear jugador"
-        android:textSize="20sp"
-        android:textStyle="bold|italic"
-        app:layout_constraintBottom_toTopOf="@+id/tv_crearJugador_nombre"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
     <Button
         android:id="@+id/btn_crearJugador"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="72dp"
+        android:layout_marginBottom="92dp"
         android:text="Crear"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.179"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
@@ -45,32 +31,20 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/tv_crearJugador_altura" />
 
-    <EditText
-        android:id="@+id/tv_crearJugador_casado"
+    <TextView
+        android:id="@+id/tituloJugadorACrear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:hint="Casado"
-        android:inputType="text"
+        android:layout_marginBottom="76dp"
+        android:text="Crear jugador"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_crearJugador_edad"
-        app:layout_constraintEnd_toEndOf="@+id/tv_crearJugador_edad"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/tv_crearJugador_edad" />
-
-    <EditText
-        android:id="@+id/tv_crearJugador_posicion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Posicion"
-        android:inputType="text"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_crearJugador_equipo"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/tv_crearJugador_nombre"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.98" />
 
     <EditText
         android:id="@+id/tv_crearJugador_altura"
@@ -90,7 +64,7 @@
         android:id="@+id/tv_crearJugador_nombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="20dp"
         android:ems="10"
         android:hint="Nombre del jugador"
         android:inputType="text"
@@ -100,26 +74,30 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/tv_crearJugador_casado" />
 
-    <ListView
-        android:id="@+id/lista_jugador_actualizada"
-        android:layout_width="206dp"
-        android:layout_height="181dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/btn_crearJugador" />
-
     <EditText
-        android:id="@+id/tv_crearJugador_equipo"
+        android:id="@+id/tv_crearJugador_casado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="56dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
-        android:hint="Equipo"
+        android:hint="Casado"
         android:inputType="text"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/lista_jugador_actualizada"
+        app:layout_constraintBottom_toTopOf="@+id/tv_crearJugador_edad"
+        app:layout_constraintEnd_toEndOf="@+id/tv_crearJugador_edad"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_crearJugador_edad" />
+
+    <EditText
+        android:id="@+id/tv_crearJugador_posicion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="104dp"
+        android:ems="10"
+        android:hint="Posicion"
+        android:inputType="text"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_crearJugador"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent" />

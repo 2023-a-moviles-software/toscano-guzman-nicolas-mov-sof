@@ -2,27 +2,17 @@ package com.example.exam_crud
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 
 class CrearEquipo : AppCompatActivity() {
 
-    private val arreglo = BaseDeDatos.arregloEquipo
     private var equipoId: Int = 0
-    private lateinit var adaptador: ArrayAdapter<Equipo>
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_crear_equipo)
 
-        adaptador = ArrayAdapter(
-            this,
-            android.R.layout.simple_list_item_1,
-            arreglo
-        )
-
-        equipoId = intent.getIntExtra("idEquipo", 0)
+        equipoId = intent.getIntExtra("idEquipo", equipoId+1)
 
         val botonCrearEquipo = findViewById<Button>(R.id.btn_crearEquipo)
 
@@ -48,16 +38,15 @@ class CrearEquipo : AppCompatActivity() {
         titulos: String?,
         ingresos: String?
     ) {
+        val ultimoId = BaseDeDatos.equipos.lastOrNull()?.id ?: 0
         val nuevoEquipo = Equipo(
-            id = BaseDeDatos.arregloEquipo.size + 1, // Utiliza el tamaño actual de la lista como el nuevo id
+            id = ultimoId + 1,
             nombreEquipo = nombre,
             fundacion = fundacion,
             titulosGanados = titulos?.toInt(),
             ingresosTotales = ingresos?.toDouble(),
             jugadorObtenido = ArrayList()
         )
-        BaseDeDatos.arregloEquipo.add(nuevoEquipo)
-        adaptador.notifyDataSetChanged()
-
+        BaseDeDatos.equipos.add(nuevoEquipo)
     }
 }

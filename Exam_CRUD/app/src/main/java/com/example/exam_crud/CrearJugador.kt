@@ -2,35 +2,21 @@ package com.example.exam_crud
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ListView
 
 class CrearJugador : AppCompatActivity() {
 
     private var equipoId: Int = 0
-    private lateinit var equipo: Equipo
-    private lateinit var adaptador: ArrayAdapter<Jugador>
-    private lateinit var jugadoresEquipo: ArrayList<Jugador>
+    private var equipo: Equipo? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_crear_jugador)
 
-        val listView8 = findViewById<ListView>(R.id.lista_jugador_actualizada)
+        equipoId = intent.getIntExtra("idEquipo", -1)
 
-        equipoId = intent.getIntExtra("idJugador", 0)
-        equipo = obtenerEquipoPorId(equipoId) ?: return // Obtener el equipo correspondiente al equipoId
-        jugadoresEquipo = equipo.jugadorObtenido
-
-        adaptador = ArrayAdapter(
-            this,
-            android.R.layout.simple_list_item_1,
-            jugadoresEquipo
-        )
-
-        listView8.adapter = adaptador
+        equipo = obtenerEquipoPorId(equipoId)
 
         val botonCrearJugador = findViewById<Button>(R.id.btn_crearJugador)
 
@@ -40,46 +26,47 @@ class CrearJugador : AppCompatActivity() {
             val edadJugador = findViewById<EditText>(R.id.tv_crearJugador_edad).text.toString()
             val alturaJugador = findViewById<EditText>(R.id.tv_crearJugador_altura).text.toString()
             val posicionJugador = findViewById<EditText>(R.id.tv_crearJugador_posicion).text.toString()
+
+            val casadoJugadorBoolean: Boolean
+
+            casadoJugadorBoolean = casadoJugador == "casado" || casadoJugador == "Casado"
+
             crearJugador(
                 nombreJugador,
-                casadoJugador,
+                casadoJugadorBoolean,
                 edadJugador,
                 alturaJugador,
                 posicionJugador
             )
         }
-        registerForContextMenu(listView8)
     }
 
     private fun crearJugador(
         nombre: String?,
-        casado: String?,
+        casado: Boolean?,
         edad: String?,
         altura: String?,
         posicion: String?
     ) {
-        val equipo = BaseDeDatos.arregloEquipo.find { it.id == equipoId } ?: return
-
+        val ultimoId = equipo?.jugadorObtenido?.maxByOrNull { it.id }?.id ?: 0
         val nuevoJugador = Jugador(
-            id = BaseDeDatos.arregloJugadorFC.size + 1, // Utiliza el tamaño actual del arreglo como el nuevo id
+            id = ultimoId + 1,
             nombreJugador = nombre,
-            casado = casado.toBoolean(),
+            casado = casado,
             edad = edad?.toInt(),
             altura = altura?.toDouble(),
             posicion = posicion,
-            equipoJugador = equipo.nombreEquipo ?: ""
+            equipoJugador = equipo?.nombreEquipo ?: ""
         )
-        equipo.jugadorObtenido.add(nuevoJugador)
-        adaptador.notifyDataSetChanged()
+
+        BaseDeDatos.equipos.find {
+            it.id == equipoId
+        }
+            ?.jugadorObtenido?.add(nuevoJugador)
     }
 
     private fun obtenerEquipoPorId(id: Int): Equipo? {
-        return BaseDeDatos.arregloEquipo.find { it.id == id }
-    }
-
-    private fun obtenerJugadoresPorEquipoId(id: Int): ArrayList<Jugador>? {
-        val equipo = BaseDeDatos.arregloEquipo.find { it.id == id }
-        return equipo?.jugadorObtenido
+        return BaseDeDatos.equipos.find { it.id == id }
     }
 
 }

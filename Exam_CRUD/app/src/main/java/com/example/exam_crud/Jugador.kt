@@ -10,7 +10,7 @@ class Jugador(
     var equipoJugador: String?
 ) {
     override fun toString(): String {
-        var casadoString: String?
+        val casadoString: String?
 
         if(casado == true){
             casadoString = "Casado"

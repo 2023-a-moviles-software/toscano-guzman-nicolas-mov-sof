@@ -1,5 +1,6 @@
 package com.example.exam_crud
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -7,6 +8,7 @@ import android.widget.EditText
 import android.widget.TextView
 
 class EditarEquipo : AppCompatActivity() {
+    @SuppressLint("CutPasteId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_editar_equipo)
@@ -16,7 +18,7 @@ class EditarEquipo : AppCompatActivity() {
 
         val tituloEquipoEditar = findViewById<TextView>(R.id.tituloEquipoEditar)
 
-        val equipo = BaseDeDatos.arregloEquipo.find { it.id == equipoId }
+        val equipo = BaseDeDatos.equipos.find { it.id == equipoId }
 
         if (equipo != null) {
             tituloEquipoEditar.text = equipo.nombreEquipo
@@ -30,7 +32,6 @@ class EditarEquipo : AppCompatActivity() {
             val titulosEditText = findViewById<EditText>(R.id.editarTextTitulos)
             val titulos = equipo.titulosGanados?.toString() ?: ""
             titulosEditText.setText(titulos)
-            //titulosEditText.setText(equipo.titulosGanados.toString())
 
             val ingresosEditText = findViewById<EditText>(R.id.editarTextIngresos)
             val ingresos = equipo.ingresosTotales?.toString() ?: ""
@@ -45,7 +46,7 @@ class EditarEquipo : AppCompatActivity() {
                 val titulos = findViewById<EditText>(R.id.editarTextTitulos).text.toString()
                 val ingresos = findViewById<EditText>(R.id.editarTextIngresos).text.toString()
 
-                val equipo = BaseDeDatos.arregloEquipo.find { it.id == equipoId }
+                val equipo = BaseDeDatos.equipos.find { it.id == equipoId }
                 if (equipo != null) {
                     equipo.nombreEquipo = nombre
                     equipo.fundacion = fundacion

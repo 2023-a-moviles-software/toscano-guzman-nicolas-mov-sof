@@ -6,7 +6,7 @@ class Equipo(
     var fundacion: String?,
     var titulosGanados: Int?,
     var ingresosTotales: Double?,
-    var jugadorObtenido: ArrayList<Jugador>
+    var jugadorObtenido: MutableList<Jugador>
 ) {
     override fun toString(): String {
         return "${id} - ${nombreEquipo}"

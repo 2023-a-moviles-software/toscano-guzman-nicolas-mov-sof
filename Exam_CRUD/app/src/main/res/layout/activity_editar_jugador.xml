@@ -10,7 +10,7 @@
         android:id="@+id/tv_editar_altura"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:hint="Altura"
         android:inputType="text"
@@ -52,10 +52,10 @@
         android:id="@+id/btn_actualizar_jugador"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="164dp"
+        android:layout_marginTop="120dp"
         android:text="Actualizar"
         app:layout_constraintEnd_toEndOf="@+id/tv_editar_equipo"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="@+id/tv_editar_equipo"
         app:layout_constraintTop_toBottomOf="@+id/tv_editar_equipo" />
 
@@ -92,7 +92,7 @@
         android:id="@+id/tv_editar_posicion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:hint="Posicion"
         android:inputType="text"
@@ -101,14 +101,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <ListView
-        android:id="@+id/listaJugadoresActualizada"
-        android:layout_width="151dp"
-        android:layout_height="128dp"
-        android:layout_marginEnd="40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_editar_equipo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

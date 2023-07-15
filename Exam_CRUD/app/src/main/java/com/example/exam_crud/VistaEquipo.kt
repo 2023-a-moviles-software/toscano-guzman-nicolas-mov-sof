@@ -13,9 +13,7 @@ import android.widget.ListView
 
 class VistaEquipo : AppCompatActivity() {
 
-    val arreglo = BaseDeDatos.arregloEquipo
-    var idItemSeleccionado = 0
-
+    private var idItemSeleccionado = 0
     private lateinit var adaptador: ArrayAdapter<Equipo>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +25,7 @@ class VistaEquipo : AppCompatActivity() {
         adaptador = ArrayAdapter(
             this,
             android.R.layout.simple_list_item_1,
-            arreglo
+            BaseDeDatos.equipos
         )
 
         listView.adapter = adaptador
@@ -49,7 +47,7 @@ class VistaEquipo : AppCompatActivity() {
 
         registerForContextMenu(listView)
     }
-    fun irActividad(clase: Class<*>, idEquipo: Int, posicion: Int) {
+    private fun irActividad(clase: Class<*>, idEquipo: Int, posicion: Int) {
         val intent = Intent(this, clase)
         intent.putExtra("idEquipo", idEquipo)
         intent.putExtra("posicion", posicion) // Pasar la posición del equipo seleccionado
@@ -71,13 +69,16 @@ class VistaEquipo : AppCompatActivity() {
             }
 
             R.id.mi_Eliminar -> {
-
-                "Hacer algo con: ${idItemSeleccionado}"
+                val equipo = BaseDeDatos.equipos.find { it.id == idItemSeleccionado }
+                if (equipo != null) {
+                    eliminarEquipo(equipo)
+                    actualizarListaEquipos()
+                }
                 return true
             }
 
-            else
-            -> super.onContextItemSelected(item)
+            else -> super.onContextItemSelected(item)
+
         }
     }
 
@@ -90,33 +91,23 @@ class VistaEquipo : AppCompatActivity() {
         val inflater = menuInflater
         inflater.inflate(R.menu.menu, menu)
         val info = menuInfo as AdapterView.AdapterContextMenuInfo
-        val menuId = arreglo[info.position].id
+        val menuId = BaseDeDatos.equipos[info.position].id
         idItemSeleccionado = menuId
     }
 
-//    override fun onResume() {
-//        super.onResume()
-//        val posicionActualizada = intent.getIntExtra("posicion", -1)
-//        if (posicionActualizada != -1) {
-//
-//            adaptador.notifyDataSetChanged() // Actualizar solo el elemento en la posición indicada
-//        }
-//    }
-//
-//    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-//        super.onRestoreInstanceState(savedInstanceState)
-//        idItemSeleccionado = savedInstanceState.getInt("idItemSeleccionado")
-//    }
-
-    fun actualizarListaEquipos() {
+    private fun actualizarListaEquipos() {
         val listView = findViewById<ListView>(R.id.listView_Equipo)
         val adaptador = ArrayAdapter(
             this,
             android.R.layout.simple_list_item_1,
-            arreglo
+            BaseDeDatos.equipos
         )
         listView.adapter = adaptador
         adaptador.notifyDataSetChanged()
+    }
+
+    private fun eliminarEquipo(equipo: Equipo) {
+        BaseDeDatos.equipos.remove(equipo)
     }
 
     override fun onRestart() {
@@ -128,6 +119,8 @@ class VistaEquipo : AppCompatActivity() {
         super.onResume()
         actualizarListaEquipos()
     }
+
+
 
 }
 

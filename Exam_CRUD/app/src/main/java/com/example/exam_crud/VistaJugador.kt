@@ -14,43 +14,35 @@ import android.widget.TextView
 
 class VistaJugador : AppCompatActivity() {
 
+    private lateinit var equipo: Equipo
     private var equipoId: Int = 0
     private var idItemSeleccionado = 0
-
-    private lateinit var tituloEquipo: TextView
-    private lateinit var equipo: Equipo
+    private lateinit var adaptador: ArrayAdapter<Jugador>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vista_jugador)
-        equipoId = intent.getIntExtra("idEquipo", 0)
-
-        tituloEquipo = findViewById(R.id.tituloEquipo)
-
-        equipo = BaseDeDatos.arregloEquipo.find { it.id == equipoId }!!
-
 
         val listView = findViewById<ListView>(R.id.listView_equipo_completo)
-        tituloEquipo.text = equipo.nombreEquipo
-        val detalleEquipo = mutableListOf<String>()
-        detalleEquipo.add("Jugadores:")
 
+        equipoId = intent.getIntExtra("idEquipo", 0)
+        equipo = BaseDeDatos.equipos.find { it.id == equipoId }!!
 
-        for (jugador in equipo.jugadorObtenido) {
-            detalleEquipo.add(jugador.toString())
-        }
-        val adaptador = ArrayAdapter(
+        val tituloEquipoEditar = findViewById<TextView>(R.id.tituloEquipo)
+        tituloEquipoEditar.text = equipo.nombreEquipo
+        //OJO
+        adaptador = ArrayAdapter(
             this,
             android.R.layout.simple_list_item_1,
-            // Convertir el equipo a una lista para el adaptador
-            detalleEquipo
+            //OJO
+            equipo.jugadorObtenido
         )
         listView.adapter = adaptador
         adaptador.notifyDataSetChanged()
 
         val botonCrearEquipo = findViewById<Button>(R.id.btn_crear_jugador)
         botonCrearEquipo.setOnClickListener {
-            irActividad(CrearJugador::class.java, -1,-1)
+            irActividad(CrearJugador::class.java, equipoId,-1)
         }
 
         registerForContextMenu(listView)
@@ -71,19 +63,23 @@ class VistaJugador : AppCompatActivity() {
                     this,
                     EditarJugador::class.java
                 )
+                intent.putExtra("equipoId", equipoId)
                 intent.putExtra("jugadorId", jugadorId)
                 startActivity(intent)
                 return true
             }
 
             R.id.mi_Eliminar -> {
-
-                "Hacer algo con: ${idItemSeleccionado}"
+                val jugadorId = idItemSeleccionado
+                val jugador = equipo.jugadorObtenido.find { it.id == jugadorId }
+                if (jugador != null) {
+                    eliminarJugador(jugador)
+                    actualizarListaJugadores()
+                }
                 return true
             }
 
-            else
-            -> super.onContextItemSelected(item)
+            else -> super.onContextItemSelected(item)
         }
     }
 
@@ -102,6 +98,7 @@ class VistaJugador : AppCompatActivity() {
 
     private fun actualizarListaJugadores() {
         val listView = findViewById<ListView>(R.id.listView_equipo_completo)
+        val tituloEquipo = findViewById<TextView>(R.id.tituloEquipo)
         tituloEquipo.text = equipo.nombreEquipo
         val detalleEquipo = mutableListOf<String>()
         detalleEquipo.add("Jugadores:")
@@ -116,6 +113,11 @@ class VistaJugador : AppCompatActivity() {
         listView.adapter = adaptador
         adaptador.notifyDataSetChanged()
     }
+
+    private fun eliminarJugador(jugador: Jugador) {
+        equipo.jugadorObtenido.remove(jugador)
+    }
+
 
     override fun onRestart() {
         super.onRestart()
