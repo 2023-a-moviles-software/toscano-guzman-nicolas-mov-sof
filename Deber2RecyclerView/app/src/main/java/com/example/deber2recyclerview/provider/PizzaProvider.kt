@@ -1,6 +1,6 @@
 package com.example.deber2recyclerview.provider
 
-import com.example.deber2recyclerview.Comida
+import com.example.deber2recyclerview.entidad.Comida
 
 class PizzaProvider {
     companion object{

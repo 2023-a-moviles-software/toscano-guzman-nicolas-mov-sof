@@ -3,9 +3,10 @@ package com.example.deber2recyclerview
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.deber2recyclerview.adapter.ComidaAdapter
+import com.example.deber2recyclerview.adapter.CategoriaAdapter
 import com.example.deber2recyclerview.databinding.ActivityMainBinding
-import com.example.deber2recyclerview.provider.PizzaProvider
+import com.example.deber2recyclerview.provider.CategoriaProvider
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,9 +19,10 @@ class MainActivity : AppCompatActivity() {
         initRecyclerView()
     }
 
-    private fun initRecyclerView(){
-
+    private fun initRecyclerView() {
         binding.recyclerViewComida.layoutManager = LinearLayoutManager(this)
-        binding.recyclerViewComida.adapter = ComidaAdapter(PizzaProvider.listaComidas)
+        val categoriaAdapter = CategoriaAdapter(CategoriaProvider.listaCategorias, binding)
+        binding.recyclerViewComida.adapter = categoriaAdapter
     }
+
 }

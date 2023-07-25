@@ -1,4 +1,4 @@
-package com.example.deber2recyclerview
+package com.example.deber2recyclerview.entidad
 
 data class Comida(
     val nombreComida: String,

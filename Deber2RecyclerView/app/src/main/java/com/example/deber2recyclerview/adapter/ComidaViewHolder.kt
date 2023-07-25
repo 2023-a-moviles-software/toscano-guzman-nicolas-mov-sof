@@ -1,13 +1,10 @@
 package com.example.deber2recyclerview.adapter
 
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.deber2recyclerview.Comida
-import com.example.deber2recyclerview.R
+import com.example.deber2recyclerview.entidad.Comida
 import com.example.deber2recyclerview.databinding.ItemComidaBinding
 
 class ComidaViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -15,7 +12,6 @@ class ComidaViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     var totalLikes = 0
     var numeroLikes = 0
     val binding = ItemComidaBinding.bind(view)
-
 
 //    val nombreComida = view.findViewById<TextView>(R.id.tv_nombre_comida)
 //    val precioComida = view.findViewById<TextView>(R.id.tv_precio_comida)
@@ -45,28 +41,27 @@ class ComidaViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         }
     }
 
-    fun anadirLike(){
+    fun anadirLike() {
         numeroLikes = numeroLikes + 1
         binding.tvTotalLikes.text = numeroLikes.toString()
         aumentarTotalLikes()
     }
 
-    fun quitarLike(){
+    fun quitarLike() {
         numeroLikes = numeroLikes - 1
         binding.tvTotalLikes.text = numeroLikes.toString()
         disminuirTotalLikes()
     }
 
-    fun aumentarTotalLikes(){
+    fun aumentarTotalLikes() {
         totalLikes = totalLikes + 1
         val totalLikesTextView = binding.tvTotalLikes
         totalLikesTextView.text = totalLikes.toString()
     }
 
-    fun disminuirTotalLikes(){
+    fun disminuirTotalLikes() {
         totalLikes = totalLikes - 1
         val totalLikesTextView = binding.tvTotalLikes
         totalLikesTextView.text = totalLikes.toString()
     }
-
 }

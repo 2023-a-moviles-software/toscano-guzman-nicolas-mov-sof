@@ -3,7 +3,7 @@ package com.example.deber2recyclerview.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.deber2recyclerview.Comida
+import com.example.deber2recyclerview.entidad.Comida
 import com.example.deber2recyclerview.R
 
 class ComidaAdapter(private val listaComidas: List<Comida>) : RecyclerView.Adapter<ComidaViewHolder>(){
