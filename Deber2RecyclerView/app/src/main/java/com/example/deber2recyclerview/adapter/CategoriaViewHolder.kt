@@ -2,8 +2,14 @@ package com.example.deber2recyclerview.adapter
 
 import android.content.Intent
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.deber2recyclerview.RV_Alcohol
+import com.example.deber2recyclerview.RV_Farmacia
+import com.example.deber2recyclerview.RV_Hamburguesa
+import com.example.deber2recyclerview.RV_Mascota
+import com.example.deber2recyclerview.RV_Pizza
 import com.example.deber2recyclerview.entidad.Categoria
 import com.example.deber2recyclerview.entidad.Comida
 import com.example.deber2recyclerview.databinding.ActivityMainBinding
@@ -41,23 +47,34 @@ class CategoriaViewHolder(
             ).show()
 
             if (categoria.nombreCategoria == "Pizza") {
-                activityBinding.recyclerViewComida.adapter =
-                    ComidaAdapter(PizzaProvider.listaComidas)
+//                ComidaAdapter(PizzaProvider.listaComidas)
+                irActividad(RV_Pizza::class.java, PizzaProvider.listaComidas)
+
             } else if (categoria.nombreCategoria == "Alcohol") {
-                activityBinding.recyclerViewComida.adapter =
-                    ComidaAdapter(AlcoholProvider.listaComidas)
+//                activityBinding.recyclerViewComida.adapter =
+//                    ComidaAdapter(AlcoholProvider.listaComidas)
+                irActividad(RV_Alcohol::class.java, AlcoholProvider.listaComidas)
             } else if (categoria.nombreCategoria == "Farmacia") {
-                activityBinding.recyclerViewComida.adapter =
-                    ComidaAdapter(FarmaciaProvider.listaComidas)
+//                activityBinding.recyclerViewComida.adapter =
+//                    ComidaAdapter(FarmaciaProvider.listaComidas)
+                irActividad(RV_Farmacia::class.java, FarmaciaProvider.listaComidas)
             } else if (categoria.nombreCategoria == "Hamburguesas") {
-                activityBinding.recyclerViewComida.adapter =
-                    ComidaAdapter(HambuguesaProvider.listaComidas)
+//                activityBinding.recyclerViewComida.adapter =
+//                    ComidaAdapter(HambuguesaProvider.listaComidas)
+                irActividad(RV_Hamburguesa::class.java, HambuguesaProvider.listaComidas)
             } else if (categoria.nombreCategoria == "Mascotas") {
-                activityBinding.recyclerViewComida.adapter =
-                    ComidaAdapter(MascotaProvider.listaComidas)
+//                activityBinding.recyclerViewComida.adapter =
+//                    ComidaAdapter(MascotaProvider.listaComidas)
+                irActividad(RV_Mascota::class.java, MascotaProvider.listaComidas)
             }
         }
     }
+    fun irActividad(clase: Class<*>, listaComidas: List<Comida>) {
+        val intent = Intent(binding.root.context, clase)
+        intent.putExtra("Lista_Comidas", ArrayList(listaComidas))
+        binding.root.context.startActivity(intent)
+    }
+
 
 }
 

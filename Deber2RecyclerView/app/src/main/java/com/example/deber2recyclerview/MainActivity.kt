@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         initRecyclerView()
     }
-
     private fun initRecyclerView() {
         binding.recyclerViewComida.layoutManager = LinearLayoutManager(this)
         val categoriaAdapter = CategoriaAdapter(CategoriaProvider.listaCategorias, binding)
