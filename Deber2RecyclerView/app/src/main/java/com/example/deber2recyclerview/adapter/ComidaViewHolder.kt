@@ -4,8 +4,8 @@ import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.deber2recyclerview.entidad.Comida
 import com.example.deber2recyclerview.databinding.ItemComidaBinding
+import com.example.deber2recyclerview.entidad.Comida
 
 class ComidaViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -41,26 +41,26 @@ class ComidaViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         }
     }
 
-    fun anadirLike() {
-        numeroLikes = numeroLikes + 1
+    private fun anadirLike() {
+        numeroLikes += 1
         binding.tvTotalLikes.text = numeroLikes.toString()
         aumentarTotalLikes()
     }
 
-    fun quitarLike() {
-        numeroLikes = numeroLikes - 1
+    private fun quitarLike() {
+        numeroLikes -= 1
         binding.tvTotalLikes.text = numeroLikes.toString()
         disminuirTotalLikes()
     }
 
-    fun aumentarTotalLikes() {
-        totalLikes = totalLikes + 1
+    private fun aumentarTotalLikes() {
+        totalLikes += 1
         val totalLikesTextView = binding.tvTotalLikes
         totalLikesTextView.text = totalLikes.toString()
     }
 
-    fun disminuirTotalLikes() {
-        totalLikes = totalLikes - 1
+    private fun disminuirTotalLikes() {
+        totalLikes -= 1
         val totalLikesTextView = binding.tvTotalLikes
         totalLikesTextView.text = totalLikes.toString()
     }

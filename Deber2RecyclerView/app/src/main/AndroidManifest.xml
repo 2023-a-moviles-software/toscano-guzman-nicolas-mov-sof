@@ -15,22 +15,22 @@
         android:theme="@style/Theme.Deber2RecyclerView"
         tools:targetApi="31">
         <activity
-            android:name=".RV_Alcohol"
+            android:name=".VistaComida"
             android:exported="false" />
         <activity
-            android:name=".RV_Farmacia"
+            android:name=".adapter.CategoriaAdapter"
             android:exported="false" />
         <activity
-            android:name=".RV_Hamburguesa"
+            android:name=".adapter.CategoriaViewHolder"
             android:exported="false" />
         <activity
-            android:name=".RV_Mascota"
+            android:name=".adapter.ComidaAdapter"
             android:exported="false" />
         <activity
-            android:name=".RV_Pizza"
+            android:name=".adapter.ComidaViewHolder"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".VistaCategoria"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
