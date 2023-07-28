@@ -8,7 +8,6 @@ import com.example.deber2recyclerview.VistaComida
 import com.example.deber2recyclerview.databinding.ItemCategoriaBinding
 import com.example.deber2recyclerview.entidad.Categoria
 
-
 class CategoriaViewHolder(
     private val binding: ItemCategoriaBinding
 ) : RecyclerView.ViewHolder(binding.root) {
@@ -33,14 +32,6 @@ class CategoriaViewHolder(
                 Toast.LENGTH_SHORT
             ).show()
         }
-
-//        itemView.setOnClickListener {
-//            Toast.makeText(
-//                binding.ivCategoria.context,
-//                "Seleccionaste: " + categoria.nombreCategoria,
-//                Toast.LENGTH_SHORT
-//            ).show()
-//        }
     }
 }
 

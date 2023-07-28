@@ -16,14 +16,13 @@ class ComidaViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 //    val nombreComida = view.findViewById<TextView>(R.id.tv_nombre_comida)
 //    val precioComida = view.findViewById<TextView>(R.id.tv_precio_comida)
 //    val imagen = view.findViewById<ImageView>(R.id.iv_comida)
-
     fun constructor(comida: Comida) {
         binding.tvNombreComida.text = comida.nombreComida
         binding.tvPrecioComida.text = comida.precio.toString()
 
         Glide.with(binding.ivComida.context).load(comida.imagen).into(binding.ivComida)
         binding.btnMenos.setOnClickListener {
-            quitarLike()
+            quitarComida()
             Toast.makeText(
                 binding.ivComida.context,
                 "Quitaste un(a)" + comida.nombreComida,
@@ -32,7 +31,7 @@ class ComidaViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         }
 
         binding.btnMas.setOnClickListener {
-            anadirLike()
+            anadirComida()
             Toast.makeText(
                 binding.ivComida.context,
                 "Añadiste un(a)" + comida.nombreComida,
@@ -41,25 +40,25 @@ class ComidaViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         }
     }
 
-    private fun anadirLike() {
+    private fun anadirComida() {
         numeroLikes += 1
         binding.tvTotalLikes.text = numeroLikes.toString()
-        aumentarTotalLikes()
+        aumentarTotalComida()
     }
 
-    private fun quitarLike() {
+    private fun quitarComida() {
         numeroLikes -= 1
         binding.tvTotalLikes.text = numeroLikes.toString()
-        disminuirTotalLikes()
+        disminuirTotalComida()
     }
 
-    private fun aumentarTotalLikes() {
+    private fun aumentarTotalComida() {
         totalLikes += 1
         val totalLikesTextView = binding.tvTotalLikes
         totalLikesTextView.text = totalLikes.toString()
     }
 
-    private fun disminuirTotalLikes() {
+    private fun disminuirTotalComida() {
         totalLikes -= 1
         val totalLikesTextView = binding.tvTotalLikes
         totalLikesTextView.text = totalLikes.toString()
