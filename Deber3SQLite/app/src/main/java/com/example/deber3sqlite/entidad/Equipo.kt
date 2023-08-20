@@ -1,4 +1,4 @@
-package com.example.deber3sqlite
+package com.example.deber3sqlite.entidad
 
 class Equipo(
     var id: Int,
@@ -10,10 +10,5 @@ class Equipo(
 ) {
     override fun toString(): String {
         return "${id} - ${nombreEquipo}"
-
-//        return "${id} - ${nombreEquipo} - ${fundacion} - ${titulosGanados} " +
-//                "- ${ingresosTotales} - ${jugadorObtenido}"
     }
-
-
 }

@@ -1,9 +1,11 @@
-package com.example.deber3sqlite
+package com.example.deber3sqlite.bdsqlite
 
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.example.deber3sqlite.entidad.Equipo
+import com.example.deber3sqlite.entidad.Jugador
 
 
 class ESqliteHelperEquipo(
@@ -92,10 +94,6 @@ class ESqliteHelperEquipo(
             valoresAGuardar //valores
         )
         baseDatosEscritura.close()
-
-
-
-
         return if (resultadoGuardar.toInt() === -1) false else true
     }
 

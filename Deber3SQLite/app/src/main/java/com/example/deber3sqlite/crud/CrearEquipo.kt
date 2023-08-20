@@ -1,23 +1,21 @@
-package com.example.deber3sqlite
+package com.example.deber3sqlite.crud
 
 import android.app.Activity
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import com.example.deber3sqlite.bdsqlite.EBaseDeDatos
+import com.example.deber3sqlite.R
 
 class CrearEquipo : AppCompatActivity() {
 
     private var equipoId: Int = 0
-//    private lateinit var dbHelper: ESqliteHelperEquipo
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_crear_equipo)
 
         equipoId = intent.getIntExtra("idEquipo", equipoId+1)
-//        dbHelper = ESqliteHelperEquipo(this) // Inicializa dbHelper
 
         val botonCrearEquipo = findViewById<Button>(R.id.btn_crearEquipo)
 
@@ -28,9 +26,7 @@ class CrearEquipo : AppCompatActivity() {
             val titulosEquipo = findViewById<EditText>(R.id.crearTextTitulos).text.toString()
             val ingresosEquipo = findViewById<EditText>(R.id.crearTextIngresos).text.toString()
 
-
             EBaseDeDatos.tabla!!.crearEquipo(
-//            dbHelper.crearEquipo(
                 nombreEquipo,
                 fundacionEquipo,
                 titulosEquipo,

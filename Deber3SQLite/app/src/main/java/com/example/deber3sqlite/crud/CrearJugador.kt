@@ -1,10 +1,11 @@
-package com.example.deber3sqlite
+package com.example.deber3sqlite.crud
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import com.example.deber3sqlite.bdsqlite.EBaseDeDatos
+import com.example.deber3sqlite.R
 
 class CrearJugador : AppCompatActivity() {
 
@@ -33,10 +34,6 @@ class CrearJugador : AppCompatActivity() {
                 posicionJugador,
                 equipoId
             )
-
-//            val intent = Intent(this,VistaJugador::class.java)
-//            intent.putExtra("idEquipo",equipoId)
-//            startActivity(intent)
             finish()
         }
     }

@@ -1,4 +1,4 @@
-package com.example.deber3sqlite
+package com.example.deber3sqlite.crud
 
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import com.example.deber3sqlite.bdsqlite.EBaseDeDatos
+import com.example.deber3sqlite.R
 
 class EditarEquipo : AppCompatActivity() {
     @SuppressLint("CutPasteId")

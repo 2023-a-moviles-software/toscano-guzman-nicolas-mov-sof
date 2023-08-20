@@ -1,6 +1,5 @@
-package com.example.deber3sqlite
+package com.example.deber3sqlite.vista
 
-import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,6 +10,12 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
+import com.example.deber3sqlite.R
+import com.example.deber3sqlite.bdsqlite.EBaseDeDatos
+import com.example.deber3sqlite.bdsqlite.ESqliteHelperEquipo
+import com.example.deber3sqlite.crud.CrearEquipo
+import com.example.deber3sqlite.crud.EditarEquipo
+import com.example.deber3sqlite.entidad.Equipo
 
 class VistaEquipo : AppCompatActivity() {
 
@@ -28,7 +33,6 @@ class VistaEquipo : AppCompatActivity() {
             this,
             android.R.layout.simple_list_item_1,
             EBaseDeDatos.tabla!!.mostrarEquipos()
-//        idItemSeleccionado
         )
 
         listView.adapter = adaptador
@@ -43,14 +47,13 @@ class VistaEquipo : AppCompatActivity() {
                 }
             }
         adaptador.notifyDataSetChanged()
-
         val botonCrearEquipo = findViewById<Button>(R.id.btn_crear_equipo)
         botonCrearEquipo.setOnClickListener {
             irActividad(CrearEquipo::class.java, -1, -1)
         }
-
         registerForContextMenu(listView)
     }
+
     private fun irActividad(clase: Class<*>, idEquipo: Int, posicion: Int) {
         val intent = Intent(this, clase)
         intent.putExtra("idEquipo", idEquipo)
@@ -66,23 +69,18 @@ class VistaEquipo : AppCompatActivity() {
                     this,
                     EditarEquipo::class.java
                 )
-                intent.putExtra("equipoId",equipoId)
+                intent.putExtra("equipoId", equipoId)
                 startActivityForResult(intent, 1)
                 startActivity(intent)
                 return true
             }
 
             R.id.mi_Eliminar -> {
-//                val equipo = BaseDeDatos.equipos.find { it.id == idItemSeleccionado }
-//                if (equipo != null) {
-//                    EBaseDeDatos.tabla!!.eliminarEquipoFormulario(idItemSeleccionado)
-//                    eliminarEquipo(equipo)
-//                    actualizarListaEquipos()
-//                }
                 EBaseDeDatos.tabla!!.eliminarEquipoFormulario(idItemSeleccionado)
                 actualizarListaEquipos()
                 return true
             }
+
             else -> super.onContextItemSelected(item)
 
         }
@@ -100,20 +98,7 @@ class VistaEquipo : AppCompatActivity() {
 //        val menuId = BaseDeDatos.equipos[info.position].id
         val menuId = EBaseDeDatos.tabla!!.mostrarEquipos()[info.position].id
         idItemSeleccionado = menuId
-
     }
-
-//    private fun actualizarListaEquipos() {
-//        val listView = findViewById<ListView>(R.id.listView_Equipo)
-//        val adaptador = ArrayAdapter(
-//            this,
-//            android.R.layout.simple_list_item_1,
-//            EBaseDeDatos.tabla!!.mostrarEquipos()
-////            BaseDeDatos.equipos
-//        )
-//        listView.adapter = adaptador
-//        adaptador.notifyDataSetChanged()
-//    }
 
     private fun actualizarListaEquipos() {
         adaptador.clear() // Limpia la lista actual del adaptador
@@ -138,7 +123,5 @@ class VistaEquipo : AppCompatActivity() {
             actualizarListaEquipos()
         }
     }
-
-
 }
 

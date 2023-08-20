@@ -1,4 +1,4 @@
-package com.example.deber3sqlite
+package com.example.deber3sqlite.entidad
 
 class Jugador(
     var id: Int,
@@ -9,14 +9,6 @@ class Jugador(
     var posicion: String?
 ) {
     override fun toString(): String {
-//        val casadoString: String?
-//
-//        if(casado == true){
-//            casadoString = "Casado"
-//        }else{
-//            casadoString = "Soltero"
-//        }
-
         return "${id} - ${nombreJugador} - ${casado} - ${edad} " +
                 "- ${altura} - ${posicion}"
     }

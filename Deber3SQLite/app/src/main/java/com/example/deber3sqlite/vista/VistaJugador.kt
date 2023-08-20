@@ -1,4 +1,4 @@
-package com.example.deber3sqlite
+package com.example.deber3sqlite.vista
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +11,13 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
+import com.example.deber3sqlite.R
+import com.example.deber3sqlite.bdsqlite.EBaseDeDatos
+import com.example.deber3sqlite.bdsqlite.ESqliteHelperEquipo
+import com.example.deber3sqlite.crud.CrearJugador
+import com.example.deber3sqlite.crud.EditarJugador
+import com.example.deber3sqlite.entidad.Equipo
+import com.example.deber3sqlite.entidad.Jugador
 
 class VistaJugador : AppCompatActivity() {
 
@@ -57,18 +64,15 @@ class VistaJugador : AppCompatActivity() {
                 val jugadorId = idItemSeleccionado
                 val intent = Intent(this, EditarJugador::class.java)
                 intent.putExtra("equipoId", equipoId)
-                intent.putExtra("jugadorId", jugadorId)
+                intent.putExtra("jugadorId", jugadorId + 1)
                 startActivity(intent)
                 return true
             }
 
             R.id.mi_Eliminar -> {
-                val jugador = equipo.jugadorObtenido.find { it.id == idItemSeleccionado }
-                if (jugador != null) {
-                    EBaseDeDatos.tabla!!.eliminarJugadorFormulario(idItemSeleccionado)
-//                    eliminarJugador(jugador)
-                    actualizarListaJugadores()
-                }
+                val jugadorId = idItemSeleccionado
+                EBaseDeDatos.tabla!!.eliminarJugadorFormulario(jugadorId + 1)
+                actualizarListaJugadores()
                 return true
             }
 
@@ -90,16 +94,20 @@ class VistaJugador : AppCompatActivity() {
     }
 
     private fun actualizarListaJugadores() {
-        val listView = findViewById<ListView>(R.id.listView_equipo_completo)
-        val tituloEquipo = findViewById<TextView>(R.id.tituloEquipo)
-        tituloEquipo.text = equipo.nombreEquipo
-        val jugadoresEquipo = EBaseDeDatos.tabla!!.mostrarJugadores(equipo.id)
-        adaptador = ArrayAdapter(
-            this,
-            android.R.layout.simple_list_item_1,
-            jugadoresEquipo
-        )
-        listView.adapter = adaptador
+//        val listView = findViewById<ListView>(R.id.listView_equipo_completo)
+//        val tituloEquipo = findViewById<TextView>(R.id.tituloEquipo)
+//        tituloEquipo.text = equipo.nombreEquipo
+//        val jugadoresEquipo = EBaseDeDatos.tabla!!.mostrarJugadores(equipo.id)
+//        adaptador = ArrayAdapter(
+//            this,
+//            android.R.layout.simple_list_item_1,
+//            jugadoresEquipo
+//        )
+//        listView.adapter = adaptador
+//        adaptador.notifyDataSetChanged()
+
+        adaptador.clear() // Limpia la lista actual del adaptador
+        adaptador.addAll(EBaseDeDatos.tabla!!.mostrarJugadores(equipoId)) // Agrega los nuevos datos
         adaptador.notifyDataSetChanged()
     }
 //    private fun eliminarJugador(jugador: Jugador) {

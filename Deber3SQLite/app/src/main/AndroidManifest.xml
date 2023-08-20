@@ -13,28 +13,28 @@
         android:theme="@style/Theme.Deber3SQLite"
         tools:targetApi="31">
         <activity
-            android:name=".CrearJugador"
+            android:name=".crud.CrearJugador"
             android:exported="false" />
         <activity
-            android:name=".EBaseDeDatos"
+            android:name=".bdsqlite.EBaseDeDatos"
             android:exported="false" />
         <activity
-            android:name=".ESqliteHelperEquipo"
+            android:name=".bdsqlite.ESqliteHelperEquipo"
             android:exported="false" />
         <activity
-            android:name=".CrearEquipo"
+            android:name=".crud.CrearEquipo"
             android:exported="false" />
         <activity
-            android:name=".EditarJugador"
+            android:name=".crud.EditarJugador"
             android:exported="false" />
         <activity
-            android:name=".EditarEquipo"
+            android:name=".crud.EditarEquipo"
             android:exported="false" />
         <activity
-            android:name=".VistaJugador"
+            android:name=".vista.VistaJugador"
             android:exported="false" />
         <activity
-            android:name=".VistaEquipo"
+            android:name=".vista.VistaEquipo"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
