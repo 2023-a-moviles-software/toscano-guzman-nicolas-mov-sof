@@ -1,4 +1,4 @@
-package com.example.exam_crud
+package com.example.deber3sqlite
 
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
@@ -16,11 +16,10 @@ class EditarEquipo : AppCompatActivity() {
         val intent = intent
         val equipoId = intent.getIntExtra("equipoId", 0)
 
-        val tituloEquipoEditar = findViewById<TextView>(R.id.tituloEquipoEditar)
-
-        val equipo = BaseDeDatos.equipos.find { it.id == equipoId }
+        val equipo = EBaseDeDatos.tabla?.mostrarEquipos()?.find { it.id == equipoId }
 
         if (equipo != null) {
+            val tituloEquipoEditar = findViewById<TextView>(R.id.tituloEquipoEditar)
             tituloEquipoEditar.text = equipo.nombreEquipo
 
             val nombreEditText = findViewById<EditText>(R.id.editarTextNombre)
@@ -46,14 +45,15 @@ class EditarEquipo : AppCompatActivity() {
                 val titulos = findViewById<EditText>(R.id.editarTextTitulos).text.toString()
                 val ingresos = findViewById<EditText>(R.id.editarTextIngresos).text.toString()
 
-                val equipo = BaseDeDatos.equipos.find { it.id == equipoId }
-                if (equipo != null) {
-                    equipo.nombreEquipo = nombre
-                    equipo.fundacion = fundacion
-                    equipo.titulosGanados = titulos.toIntOrNull()
-                    equipo.ingresosTotales = ingresos.toDoubleOrNull()
-                }
+                EBaseDeDatos.tabla!!.editarEquipoFormulario(
+                    nombre,
+                    fundacion,
+                    titulos,
+                    ingresos,
+                    equipoId
+                )
                 finish()
             }
+
     }
 }

@@ -1,4 +1,4 @@
-package com.example.exam_crud
+package com.example.myapplication
 
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
@@ -18,7 +18,7 @@ class EditarEquipo : AppCompatActivity() {
 
         val tituloEquipoEditar = findViewById<TextView>(R.id.tituloEquipoEditar)
 
-        val equipo = BaseDeDatos.equipos.find { it.id == equipoId }
+        val equipo = EBaseDeDatos.tabla!!.mostrarEquipos().find { it.id == equipoId }
 
         if (equipo != null) {
             tituloEquipoEditar.text = equipo.nombreEquipo
@@ -46,14 +46,15 @@ class EditarEquipo : AppCompatActivity() {
                 val titulos = findViewById<EditText>(R.id.editarTextTitulos).text.toString()
                 val ingresos = findViewById<EditText>(R.id.editarTextIngresos).text.toString()
 
-                val equipo = BaseDeDatos.equipos.find { it.id == equipoId }
-                if (equipo != null) {
-                    equipo.nombreEquipo = nombre
-                    equipo.fundacion = fundacion
-                    equipo.titulosGanados = titulos.toIntOrNull()
-                    equipo.ingresosTotales = ingresos.toDoubleOrNull()
-                }
+                EBaseDeDatos.tabla!!.editarEquipoFormulario(
+                    nombre,
+                    fundacion,
+                    titulos,
+                    ingresos,
+                    equipoId
+                )
                 finish()
             }
+
     }
 }
