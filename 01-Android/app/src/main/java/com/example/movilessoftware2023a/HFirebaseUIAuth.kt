@@ -13,34 +13,32 @@ import com.google.firebase.auth.FirebaseAuth
 
 class HFirebaseUIAuth : AppCompatActivity() {
 
+
+    //Callback del INTENT de LOGIN
     private val respuestaLoginAuthUi = registerForActivityResult(
         FirebaseAuthUIActivityResultContract()
     ) { res: FirebaseAuthUIAuthenticationResult ->
         if (res.resultCode === RESULT_OK) {
             if (res.idpResponse != null) {
+                // Logica de negocio
                 seLogeo(res.idpResponse!!)
             }
         }
     }
-
     fun seLogeo(
         res: IdpResponse
-    ) {
+    ){
         val btnLogin: Button = findViewById<Button>(R.id.btn_login_firebase)
         val btnLogout = findViewById<Button>(R.id.btn_logout_firebase)
         val tvBienvenido = findViewById<TextView>(R.id.tv_bienvenido)
         tvBienvenido.text = FirebaseAuth.getInstance().currentUser?.displayName
         btnLogout.visibility = View.VISIBLE
         btnLogin.visibility = View.INVISIBLE
-        if (res.isNewUser == true) {
-            registrarUsarioPorPrieraVez(res)
+        if(res.isNewUser == true){
+            registrarUsuarioPorPrimeraVez(res)
         }
     }
-
-    fun registrarUsarioPorPrieraVez(usuario: IdpResponse) {
-        /*usuario.email; usuario.phoneNumber; usuario.user.name;    */
-    }
-
+    fun registrarUsuarioPorPrimeraVez(usuario: IdpResponse){ /* usuario.email; usuario.phoneNumber; usuario.user.name;*/  }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,21 +46,22 @@ class HFirebaseUIAuth : AppCompatActivity() {
         val btnLogin = findViewById<Button>(R.id.btn_login_firebase)
         btnLogin.setOnClickListener {
             val providers = arrayListOf(
-                //Arreglo de PROVIDERS para logearse
-                //Ej: Correo, Facegbook, Twitter, Google,
+                // Arreglo de PROVIDERS para logearse
+                // EJ: Correo, Facebook, Twitter, Google,
                 AuthUI.IdpConfig.EmailBuilder().build()
             )
-            //Construimos el intent de login
+            // Construimos el intent de login
             val signInIntent = AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
                 .build()
+            // RESPUESTA DEL INTENT DE LOGIN
             respuestaLoginAuthUi.launch(signInIntent)
         }
         val btnLogout = findViewById<Button>(R.id.btn_logout_firebase)
         btnLogout.setOnClickListener { seDeslogeo() }
         val usuario = FirebaseAuth.getInstance().currentUser
-        if (usuario != null){
+        if(usuario != null){
             val tvBienvenido = findViewById<TextView>(R.id.tv_bienvenido)
             val btnLogin: Button = findViewById<Button>(R.id.btn_login_firebase)
             val btnLogout = findViewById<Button>(R.id.btn_logout_firebase)
@@ -71,7 +70,6 @@ class HFirebaseUIAuth : AppCompatActivity() {
             tvBienvenido.text = usuario.displayName
         }
     }
-
     fun seDeslogeo(){
         val btnLogin = findViewById<Button>(R.id.btn_login_firebase)
         val btnLogout = findViewById<Button>(R.id.btn_logout_firebase)
@@ -81,4 +79,10 @@ class HFirebaseUIAuth : AppCompatActivity() {
         btnLogin.visibility = View.VISIBLE
         FirebaseAuth.getInstance().signOut()
     }
+
+
+
+
+
+
 }
