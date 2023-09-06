@@ -60,9 +60,9 @@
 
         <Button
             android:id="@+id/btn_mas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
+            android:layout_width="54dp"
+            android:layout_height="49dp"
+            android:layout_marginEnd="32dp"
             android:layout_marginBottom="16dp"
             android:backgroundTint="@color/my_status_bar_color"
             android:text="+"
@@ -72,8 +72,8 @@
 
         <Button
             android:id="@+id/btn_menos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="52dp"
+            android:layout_height="49dp"
             android:layout_marginBottom="16dp"
             android:backgroundTint="@color/my_status_bar_color"
             android:text="-"
@@ -81,7 +81,7 @@
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btn_mas"
-            app:layout_constraintHorizontal_bias="0.393"
+            app:layout_constraintHorizontal_bias="0.34"
             app:layout_constraintStart_toEndOf="@+id/iv_comida" />
 
         <TextView
