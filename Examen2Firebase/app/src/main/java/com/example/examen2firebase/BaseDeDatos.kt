@@ -31,6 +31,51 @@ class BaseDeDatos {
                     Jugador(4, "Manuel Neuer", true, 35, 1.93, "Portero", "Liverpool"),
                     Jugador(5, "Mohamed Salah", true, 29, 1.75, "Delantero", "Liverpool")
                 )
+            ),
+            Equipo(
+                3, "Liverpool", "1950-10-17", 5, 2500000.0, mutableListOf<Jugador>(
+                    Jugador(1, "Sergio Ramos", true, 35, 1.84, "Defensor", "Liverpool"),
+                    Jugador(2, "Luka Modric", true, 35, 1.72, "Centrocampista", "Liverpool"),
+                    Jugador(3, "Harry Kane", true, 28, 1.88, "Delantero", "Liverpool"),
+                    Jugador(4, "Manuel Neuer", true, 35, 1.93, "Portero", "Liverpool"),
+                    Jugador(5, "Mohamed Salah", true, 29, 1.75, "Delantero", "Liverpool")
+                )
+            ),
+            Equipo(
+                3, "Liverpool", "1950-10-17", 5, 2500000.0, mutableListOf<Jugador>(
+                    Jugador(1, "Sergio Ramos", true, 35, 1.84, "Defensor", "Liverpool"),
+                    Jugador(2, "Luka Modric", true, 35, 1.72, "Centrocampista", "Liverpool"),
+                    Jugador(3, "Harry Kane", true, 28, 1.88, "Delantero", "Liverpool"),
+                    Jugador(4, "Manuel Neuer", true, 35, 1.93, "Portero", "Liverpool"),
+                    Jugador(5, "Mohamed Salah", true, 29, 1.75, "Delantero", "Liverpool")
+                )
+            ),
+            Equipo(
+                3, "Liverpool", "1950-10-17", 5, 2500000.0, mutableListOf<Jugador>(
+                    Jugador(1, "Sergio Ramos", true, 35, 1.84, "Defensor", "Liverpool"),
+                    Jugador(2, "Luka Modric", true, 35, 1.72, "Centrocampista", "Liverpool"),
+                    Jugador(3, "Harry Kane", true, 28, 1.88, "Delantero", "Liverpool"),
+                    Jugador(4, "Manuel Neuer", true, 35, 1.93, "Portero", "Liverpool"),
+                    Jugador(5, "Mohamed Salah", true, 29, 1.75, "Delantero", "Liverpool")
+                )
+            ),
+            Equipo(
+                3, "Liverpool", "1950-10-17", 5, 2500000.0, mutableListOf<Jugador>(
+                    Jugador(1, "Sergio Ramos", true, 35, 1.84, "Defensor", "Liverpool"),
+                    Jugador(2, "Luka Modric", true, 35, 1.72, "Centrocampista", "Liverpool"),
+                    Jugador(3, "Harry Kane", true, 28, 1.88, "Delantero", "Liverpool"),
+                    Jugador(4, "Manuel Neuer", true, 35, 1.93, "Portero", "Liverpool"),
+                    Jugador(5, "Mohamed Salah", true, 29, 1.75, "Delantero", "Liverpool")
+                )
+            ),
+            Equipo(
+                3, "Liverpool", "1950-10-17", 5, 2500000.0, mutableListOf<Jugador>(
+                    Jugador(1, "Sergio Ramos", true, 35, 1.84, "Defensor", "Liverpool"),
+                    Jugador(2, "Luka Modric", true, 35, 1.72, "Centrocampista", "Liverpool"),
+                    Jugador(3, "Harry Kane", true, 28, 1.88, "Delantero", "Liverpool"),
+                    Jugador(4, "Manuel Neuer", true, 35, 1.93, "Portero", "Liverpool"),
+                    Jugador(5, "Mohamed Salah", true, 29, 1.75, "Delantero", "Liverpool")
+                )
             )
         )
 

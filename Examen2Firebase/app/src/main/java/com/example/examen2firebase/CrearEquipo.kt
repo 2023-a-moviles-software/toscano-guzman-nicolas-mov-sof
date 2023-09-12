@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class CrearEquipo : AppCompatActivity() {
 
@@ -12,7 +14,7 @@ class CrearEquipo : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_crear_equipo)
 
-        equipoId = intent.getIntExtra("idEquipo", equipoId+1)
+        equipoId = intent.getIntExtra("idEquipo", equipoId + 1)
 
         val botonCrearEquipo = findViewById<Button>(R.id.btn_crearEquipo)
 
@@ -26,8 +28,8 @@ class CrearEquipo : AppCompatActivity() {
             crearEquipo(
                 nombreEquipo,
                 fundacionEquipo,
-                titulosEquipo,
-                ingresosEquipo
+                titulosEquipo.toInt(),
+                ingresosEquipo.toDouble()
             )
         }
     }
@@ -35,18 +37,29 @@ class CrearEquipo : AppCompatActivity() {
     private fun crearEquipo(
         nombre: String?,
         fundacion: String?,
-        titulos: String?,
-        ingresos: String?
+        titulos: Int?,
+        ingresos: Double?
     ) {
-        val ultimoId = BaseDeDatos.equipos.lastOrNull()?.id ?: 0
-        val nuevoEquipo = Equipo(
-            id = ultimoId + 1,
-            nombreEquipo = nombre,
-            fundacion = fundacion,
-            titulosGanados = titulos?.toInt(),
-            ingresosTotales = ingresos?.toDouble(),
-            jugadorObtenido = ArrayList()
-        )
-        BaseDeDatos.equipos.add(nuevoEquipo)
+        val db = Firebase.firestore
+        val vista: VistaEquipo
+        val referenciaEquipos = db
+            .collection("equipos")
+
+        referenciaEquipos.get().addOnSuccessListener { querySnapshot ->
+            val nuevoId = querySnapshot.size() + 1
+
+            val datosEquipo = hashMapOf(
+                "id" to nuevoId,
+                "nombre" to nombre,
+                "fundacion" to fundacion,
+                "trofeos" to titulos,
+                "ingresos" to ingresos,
+                "jugadores" to listOf(""),
+            )
+            if (nombre != null) {
+                referenciaEquipos.document(nombre).set(datosEquipo)
+            }
+            finish()
+        }
     }
 }

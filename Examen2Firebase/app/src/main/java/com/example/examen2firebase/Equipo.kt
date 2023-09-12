@@ -1,7 +1,7 @@
 package com.example.examen2firebase
 
 class Equipo(
-    var id: Int,
+    var id: Int?,
     var nombreEquipo: String?,
     var fundacion: String?,
     var titulosGanados: Int?,
@@ -9,11 +9,8 @@ class Equipo(
     var jugadorObtenido: MutableList<Jugador>
 ) {
     override fun toString(): String {
-        return "${id} - ${nombreEquipo}"
-
-//        return "${id} - ${nombreEquipo} - ${fundacion} - ${titulosGanados} " +
-//                "- ${ingresosTotales} - ${jugadorObtenido}"
+//        return "${id} - ${nombreEquipo}"
+        return "${nombreEquipo}"
     }
-
 
 }
