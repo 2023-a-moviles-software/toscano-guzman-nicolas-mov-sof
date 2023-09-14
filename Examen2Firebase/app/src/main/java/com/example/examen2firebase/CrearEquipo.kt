@@ -41,7 +41,6 @@ class CrearEquipo : AppCompatActivity() {
         ingresos: Double?
     ) {
         val db = Firebase.firestore
-        val vista: VistaEquipo
         val referenciaEquipos = db
             .collection("equipos")
 
@@ -57,7 +56,7 @@ class CrearEquipo : AppCompatActivity() {
                 "jugadores" to listOf(""),
             )
             if (nombre != null) {
-                referenciaEquipos.document(nombre).set(datosEquipo)
+                referenciaEquipos.document(nuevoId.toString()).set(datosEquipo)
             }
             finish()
         }

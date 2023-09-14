@@ -3,9 +3,12 @@ package com.example.examen2firebase
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class EditarEquipo : AppCompatActivity() {
     @SuppressLint("CutPasteId")
@@ -14,46 +17,68 @@ class EditarEquipo : AppCompatActivity() {
         setContentView(R.layout.activity_editar_equipo)
 
         val intent = intent
-        val equipoId = intent.getIntExtra("equipoId", 0)
+        val id = intent.getIntExtra("equipoId", -1)
+        val nombreEquipo = intent.getStringExtra("nombreEquipo")
+        val fundacionEquipo = intent.getStringExtra("fundacionEquipo")
+        val trofeosEquipo = intent.getIntExtra("trofeosEquipo", 0)
+        val ingresosEquipo = intent.getDoubleExtra("ingresosEquipo", 0.0)
+
+        Log.d("DEBUG", "nombreNuevo: $nombreEquipo")
+        Log.d("DEBUG", "fundacionNuevo: $fundacionEquipo")
+        Log.d("DEBUG", "titulosNuevo: $trofeosEquipo")
+        Log.d("DEBUG", "ingresosNuevo: $ingresosEquipo")
+        Log.d("DEBUG", "equipoId: $id")
+
 
         val tituloEquipoEditar = findViewById<TextView>(R.id.tituloEquipoEditar)
+        tituloEquipoEditar.text = nombreEquipo
 
-        val equipo = BaseDeDatos.equipos.find { it.id == equipoId }
+        val nombreEditText = findViewById<EditText>(R.id.editarTextNombre)
+        nombreEditText.setText(nombreEquipo)
 
-        if (equipo != null) {
-            tituloEquipoEditar.text = equipo.nombreEquipo
+        val fundacionEditText = findViewById<EditText>(R.id.editarTextFundacion)
+        fundacionEditText.setText(fundacionEquipo)
 
-            val nombreEditText = findViewById<EditText>(R.id.editarTextNombre)
-            nombreEditText.setText(equipo.nombreEquipo)
+        val titulosEditText = findViewById<EditText>(R.id.editarTextTitulos)
+        val titulos = trofeosEquipo.toString()
+        titulosEditText.setText(titulos)
 
-            val fundacionEditText = findViewById<EditText>(R.id.editarTextFundacion)
-            fundacionEditText.setText(equipo.fundacion)
-
-            val titulosEditText = findViewById<EditText>(R.id.editarTextTitulos)
-            val titulos = equipo.titulosGanados?.toString() ?: ""
-            titulosEditText.setText(titulos)
-
-            val ingresosEditText = findViewById<EditText>(R.id.editarTextIngresos)
-            val ingresos = equipo.ingresosTotales?.toString() ?: ""
-            ingresosEditText.setText(ingresos)
-        }
+        val ingresosEditText = findViewById<EditText>(R.id.editarTextIngresos)
+        val ingresos = ingresosEquipo.toString()
+        ingresosEditText.setText(ingresos)
 
         val botonActualizarEquipo = findViewById<Button>(R.id.btn_actualizar_equipo)
         botonActualizarEquipo
             .setOnClickListener {
-                val nombre = findViewById<EditText>(R.id.editarTextNombre).text.toString()
-                val fundacion = findViewById<EditText>(R.id.editarTextFundacion).text.toString()
-                val titulos = findViewById<EditText>(R.id.editarTextTitulos).text.toString()
-                val ingresos = findViewById<EditText>(R.id.editarTextIngresos).text.toString()
+                val nombreNuevo = findViewById<EditText>(R.id.editarTextNombre).text.toString()
+                val fundacionNuevo =
+                    findViewById<EditText>(R.id.editarTextFundacion).text.toString()
+                val titulosNuevo = findViewById<EditText>(R.id.editarTextTitulos).text.toString()
+                val ingresosNuevo = findViewById<EditText>(R.id.editarTextIngresos).text.toString()
 
-                val equipo = BaseDeDatos.equipos.find { it.id == equipoId }
-                if (equipo != null) {
-                    equipo.nombreEquipo = nombre
-                    equipo.fundacion = fundacion
-                    equipo.titulosGanados = titulos.toIntOrNull()
-                    equipo.ingresosTotales = ingresos.toDoubleOrNull()
-                }
-                finish()
+                val db = Firebase.firestore
+                val referenciaEquipos = db.collection("equipos")
+                val equipoIdNuevo = intent.getIntExtra("equipoId", 0)
+
+                val nuevosDatos = hashMapOf<String, Any?>(
+                    "id" to equipoIdNuevo,
+                    "nombre" to nombreNuevo,
+                    "fundacion" to fundacionNuevo,
+                    "trofeos" to titulosNuevo.toInt(),
+                    "ingresos" to ingresosNuevo.toDouble(),
+                    "jugadores" to listOf(""),
+                )
+
+                referenciaEquipos.document(nombreEquipo.toString()).update(nuevosDatos)
+                    .addOnSuccessListener {
+                        finish()
+                    }
+                    .addOnFailureListener { e ->
+                        Log.e("ERROR", "Error al actualizar equipo: $e")
+                    }
+
             }
+
+
     }
 }

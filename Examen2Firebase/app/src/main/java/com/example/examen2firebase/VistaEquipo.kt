@@ -32,19 +32,22 @@ class VistaEquipo : AppCompatActivity() {
         )
 
         listView.adapter = adaptador
-//        crearDatosPrueba()
-//        consultarIndiceCompuesto(adaptador)
 
         listView.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 val selectedItem = adaptador.getItem(position)
                 val idEquipo = selectedItem?.id
-                if (idEquipo != null) {
-                    irActividadConParametros(VistaJugador::class.java, idEquipo)
+                val nombreEquipo =
+                    selectedItem?.nombreEquipo // Obtén el nombre del equipo seleccionado
+                if (idEquipo != null && nombreEquipo != null) {
+                    val intent = Intent(this, VistaJugador::class.java)
+                    intent.putExtra("idEquipo", idEquipo)
+                    intent.putExtra("nombreEquipo", nombreEquipo) // Pasa el nombre del equipo
+                    startActivity(intent)
                 }
             }
 
-        val botonCrearEquipo = findViewById<Button>(R.id.btn_crear_equipo)
+        val botonCrearEquipo = findViewById<Button>(R.id.btn_crear_jugador)
         botonCrearEquipo.setOnClickListener {
             irActividad(CrearEquipo::class.java)
         }
@@ -54,30 +57,46 @@ class VistaEquipo : AppCompatActivity() {
         adaptador.notifyDataSetChanged()
     }
 
-    fun irActividad(clase: Class<*>) {
-        val intent = Intent(this, clase)
-        startActivity(intent)
-    }
-
-    fun irActividadConParametros(clase: Class<*>, idEquipo: Int) {
-        val intent = Intent(this, clase)
-        intent.putExtra("idEquipo", idEquipo) // Pasa el ID del equipo a la actividad VistaJugador
-        startActivity(intent)
-    }
-
     override fun onContextItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.mi_Editar -> {
+                val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
+                val equipoSeleccionado = adaptador.getItem(info.position)
+                val intent = Intent(this, EditarEquipo::class.java)
+                intent.putExtra("equipoId", equipoSeleccionado?.id)
+                intent.putExtra("nombreEquipo", equipoSeleccionado?.nombreEquipo)
+                intent.putExtra("fundacionEquipo", equipoSeleccionado?.fundacion)
+                intent.putExtra("trofeosEquipo", equipoSeleccionado?.titulosGanados)
+                intent.putExtra("ingresosEquipo", equipoSeleccionado?.ingresosTotales)
+                startActivity(intent)
                 return true
             }
 
             R.id.mi_Eliminar -> {
+                val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
+                val equipoSeleccionado = adaptador.getItem(info.position)
+                val db = Firebase.firestore
+                val referenciaEquipos = db.collection("equipos")
+
+                referenciaEquipos.document(equipoSeleccionado?.id.toString())
+                    .delete()
+                    .addOnSuccessListener {
+                        onResume()
+                    }
+                    .addOnFailureListener { e ->
+                    }
+
                 return true
             }
 
             else -> super.onContextItemSelected(item)
-
         }
+    }
+
+
+    fun irActividad(clase: Class<*>) {
+        val intent = Intent(this, clase)
+        startActivity(intent)
     }
 
     override fun onCreateContextMenu(
@@ -88,19 +107,17 @@ class VistaEquipo : AppCompatActivity() {
         super.onCreateContextMenu(menu, v, menuInfo)
         val inflater = menuInflater
         inflater.inflate(R.menu.menu, menu)
-        val info = menuInfo as AdapterView.AdapterContextMenuInfo
-
     }
 
     fun consultarIndiceCompuesto(adaptador: ArrayAdapter<Equipo>) {
         val db = Firebase.firestore
-        val citiesRefUnico = db.collection("equipos")
+        val equiposRefUnico = db.collection("equipos")
         limpiarArreglo()
-        citiesRefUnico
+        equiposRefUnico
             .get()
             .addOnSuccessListener {
-                for (ciudad in it) {
-                    anadirAArregloEquipo(ciudad)
+                for (equipo in it) {
+                    anadirAArregloEquipo(equipo)
                 }
                 adaptador.notifyDataSetChanged()
             }
@@ -124,67 +141,6 @@ class VistaEquipo : AppCompatActivity() {
 
     private fun limpiarArreglo() {
         arreglo.clear()
-    }
-
-    fun crearDatosPrueba() {
-        val db = Firebase.firestore
-
-        val equipos = db.collection("equipos")
-
-        var id = generateUniqueNumericId()
-
-        val data1 = hashMapOf(
-            "id" to id,
-            "nombre" to "Real Madrid",
-            "fundacion" to "1902",
-            "trofeos" to 34,
-            "ingresos" to 123.233,
-            "jugadores" to listOf("Cristiano Ronaldo", "Sergio Ramos"),
-        )
-        equipos.document("RM").set(data1)
-//        equipos.document(id.toString()).set(data1)
-
-        id = generateUniqueNumericId()
-        val data2 = hashMapOf(
-            "id" to id,
-            "nombre" to "Barcelona",
-            "fundacion" to "1945",
-            "trofeos" to 34,
-            "ingresos" to 123.233,
-            "jugadores" to listOf("messi", "pique"),
-        )
-        equipos.document("FCB").set(data2)
-//        equipos.document(id.toString()).set(data2)
-
-        id = generateUniqueNumericId()
-        val data3 = hashMapOf(
-            "id" to id,
-            "nombre" to "Liverpool",
-            "fundacion" to "1945",
-            "trofeos" to 34,
-            "ingresos" to 123.233,
-            "jugadores" to listOf("messi", "pique"),
-        )
-        equipos.document("LV").set(data3)
-//        equipos.document(id.toString()).set(data3)
-
-        id = generateUniqueNumericId()
-        val data4 = hashMapOf(
-            "id" to id,
-            "nombre" to "Manchester",
-            "fundacion" to "1945",
-            "trofeos" to 34,
-            "ingresos" to 123.233,
-            "jugadores" to listOf("messi", "pique"),
-        )
-        equipos.document("MC").set(data4)
-//        equipos.document(id.toString()).set(data4)
-    }
-
-    var id = 0
-    fun generateUniqueNumericId(): Int {
-        id++
-        return id
     }
 
     override fun onResume() {

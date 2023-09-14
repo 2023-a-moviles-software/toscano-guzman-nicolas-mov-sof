@@ -7,12 +7,12 @@
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\nicol\.android\avd\Galaxy_S23_API_34.avd" />
+            <value value="C:\Users\nicol\.android\avd\Pixel_6_API_34.avd" />
           </Key>
         </deviceKey>
       </Target>
     </targetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2023-09-09T16:14:31.618449800Z" />
+    <timeTargetWasSelectedWithDropDown value="2023-09-14T02:36:48.888094200Z" />
     <targetsSelectedWithDialog>
       <Target>
         <type value="QUICK_BOOT_TARGET" />

@@ -4,19 +4,20 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class CrearJugador : AppCompatActivity() {
 
-    private var equipoId: Int = 0
-    private var equipo: Equipo? = null
+    private var idJugador: Int = 0
+    private var nombreEquipo: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_crear_jugador)
 
-        equipoId = intent.getIntExtra("idEquipo", -1)
-
-        equipo = obtenerEquipoPorId(equipoId)
+        idJugador = intent.getIntExtra("idEquipo", idJugador + 1)
+        nombreEquipo = intent.getStringExtra("nombreEquipo")
 
         val botonCrearJugador = findViewById<Button>(R.id.btn_crearJugador)
 
@@ -25,18 +26,22 @@ class CrearJugador : AppCompatActivity() {
             val casadoJugador = findViewById<EditText>(R.id.tv_crearJugador_casado).text.toString()
             val edadJugador = findViewById<EditText>(R.id.tv_crearJugador_edad).text.toString()
             val alturaJugador = findViewById<EditText>(R.id.tv_crearJugador_altura).text.toString()
-            val posicionJugador = findViewById<EditText>(R.id.tv_crearJugador_posicion).text.toString()
+            val posicionJugador =
+                findViewById<EditText>(R.id.tv_crearJugador_posicion).text.toString()
 
             val casadoJugadorBoolean: Boolean
 
             casadoJugadorBoolean = casadoJugador == "casado" || casadoJugador == "Casado"
 
+            val equipoDelJugador = nombreEquipo
+
             crearJugador(
                 nombreJugador,
                 casadoJugadorBoolean,
-                edadJugador,
-                alturaJugador,
-                posicionJugador
+                edadJugador.toInt(),
+                alturaJugador.toDouble(),
+                posicionJugador,
+                equipoDelJugador
             )
         }
     }
@@ -44,29 +49,36 @@ class CrearJugador : AppCompatActivity() {
     private fun crearJugador(
         nombre: String?,
         casado: Boolean?,
-        edad: String?,
-        altura: String?,
-        posicion: String?
+        edad: Int?,
+        altura: Double?,
+        posicion: String?,
+        equipoDelJugador: String?
     ) {
-        val ultimoId = equipo?.jugadorObtenido?.maxByOrNull { it.id }?.id ?: 0
-        val nuevoJugador = Jugador(
-            id = ultimoId + 1,
-            nombreJugador = nombre,
-            casado = casado,
-            edad = edad?.toInt(),
-            altura = altura?.toDouble(),
-            posicion = posicion,
-            equipoJugador = equipo?.nombreEquipo ?: ""
-        )
+        nombreEquipo = intent.getStringExtra("nombreEquipo")
 
-        BaseDeDatos.equipos.find {
-            it.id == equipoId
+        val db = Firebase.firestore
+        val referenciaJugadores = db
+            .collection("jugadores")
+
+        referenciaJugadores.get().addOnSuccessListener { querySnapshot ->
+            val nuevoId = querySnapshot.size() + 1
+
+            val datosEquipo = hashMapOf(
+                "id" to nuevoId,
+                "nombreJugador" to nombre,
+                "casado" to casado,
+                "edad" to edad,
+                "altura" to altura,
+                "posicion" to posicion,
+                "equipoDelJugador" to equipoDelJugador
+            )
+            if (nombre != null) {
+                referenciaJugadores.document(nombre).set(datosEquipo)
+            }
+            finish()
         }
-            ?.jugadorObtenido?.add(nuevoJugador)
-    }
 
-    private fun obtenerEquipoPorId(id: Int): Equipo? {
-        return BaseDeDatos.equipos.find { it.id == id }
+
     }
 
 }
