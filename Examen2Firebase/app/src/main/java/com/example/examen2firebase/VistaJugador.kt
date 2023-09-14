@@ -76,9 +76,9 @@ class VistaJugador : AppCompatActivity() {
                 val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
                 val jugadorSeleccionado = adaptador.getItem(info.position)
                 val db = Firebase.firestore
-                val referenciaEquipos = db.collection("jugadores")
+                val referenciaJugadores = db.collection("jugadores")
 
-                referenciaEquipos.document(jugadorSeleccionado?.id.toString())
+                referenciaJugadores.document(jugadorSeleccionado?.id.toString())
                     .delete()
                     .addOnSuccessListener {
                         onResume()
