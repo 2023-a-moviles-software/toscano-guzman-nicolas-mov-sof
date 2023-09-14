@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Cine Show</string>
+    <string name="email_hint">Correo electrónico</string>
+    <string name="password_hint">Contraseña</string>
+    <string name="login_button_text">Iniciar sesión</string>
+    <string name="forgot_password_text">¿Olvidaste tu contraseña?</string>
+    <string name="register_text">¿No tienes una cuenta? Regístrate aquí</string>
+    <string name="logo_description">Logo de CineApp</string>
+
+    <string name="name_hint">Nombre</string>
+    <string name="register_button_text">Registrarse</string>
+    <string name="registration_title">Registro</string> <!-- Título de la pantalla de registro -->
+    <string name="terms_and_conditions">Acepto los Términos y Condiciones</string> <!-- Texto para los términos y condiciones -->
+    <string name="privacy_policy">Política de Privacidad</string>
+
+    <string name="title_peliculas">Peliculas</string>
+    <string name="title_combos">Combos</string>
+    <string name="title_notifications">Ajustes</string>
+    <string name="title_activity_main">MainActivity</string>
+</resources>
