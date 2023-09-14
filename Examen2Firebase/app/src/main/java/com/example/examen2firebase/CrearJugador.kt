@@ -73,7 +73,7 @@ class CrearJugador : AppCompatActivity() {
                 "equipoDelJugador" to equipoDelJugador
             )
             if (nombre != null) {
-                referenciaJugadores.document(nombre).set(datosEquipo)
+                referenciaJugadores.document(nuevoId.toString()).set(datosEquipo)
             }
             finish()
         }

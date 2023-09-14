@@ -23,13 +23,6 @@ class EditarEquipo : AppCompatActivity() {
         val trofeosEquipo = intent.getIntExtra("trofeosEquipo", 0)
         val ingresosEquipo = intent.getDoubleExtra("ingresosEquipo", 0.0)
 
-        Log.d("DEBUG", "nombreNuevo: $nombreEquipo")
-        Log.d("DEBUG", "fundacionNuevo: $fundacionEquipo")
-        Log.d("DEBUG", "titulosNuevo: $trofeosEquipo")
-        Log.d("DEBUG", "ingresosNuevo: $ingresosEquipo")
-        Log.d("DEBUG", "equipoId: $id")
-
-
         val tituloEquipoEditar = findViewById<TextView>(R.id.tituloEquipoEditar)
         tituloEquipoEditar.text = nombreEquipo
 
@@ -58,10 +51,9 @@ class EditarEquipo : AppCompatActivity() {
 
                 val db = Firebase.firestore
                 val referenciaEquipos = db.collection("equipos")
-                val equipoIdNuevo = intent.getIntExtra("equipoId", 0)
 
                 val nuevosDatos = hashMapOf<String, Any?>(
-                    "id" to equipoIdNuevo,
+                    "id" to id,
                     "nombre" to nombreNuevo,
                     "fundacion" to fundacionNuevo,
                     "trofeos" to titulosNuevo.toInt(),
@@ -69,7 +61,7 @@ class EditarEquipo : AppCompatActivity() {
                     "jugadores" to listOf(""),
                 )
 
-                referenciaEquipos.document(nombreEquipo.toString()).update(nuevosDatos)
+                referenciaEquipos.document(id.toString()).update(nuevosDatos)
                     .addOnSuccessListener {
                         finish()
                     }
