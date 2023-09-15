@@ -4,17 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager2.widget.ViewPager2
+import com.example.myapplication.ImageSliderAdapter
+import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentPeliculasBinding
 
 class PeliculasFragment : Fragment() {
 
     private var _binding: FragmentPeliculasBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -22,16 +20,28 @@ class PeliculasFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val peliculasViewModel =
-            ViewModelProvider(this).get(PeliculasViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_image_slider, container, false)
 
-        _binding = FragmentPeliculasBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        val viewPager: ViewPager2 = root.findViewById(R.id.viewPager)
 
-        val textView: TextView = binding.textHome
-        peliculasViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+        // Desactiva el recorte de padding para asegurarte de que todas las imágenes tengan el mismo tamaño
+        viewPager.clipToPadding = false
+
+        // Establece el padding deseado en los lados izquierdo y derecho para centrar las imágenes
+        val padding = resources.getDimensionPixelSize(R.dimen.view_pager_padding)
+        viewPager.setPadding(padding, 0, padding, 300)
+
+        val imageUrls = listOf(
+            "https://www.xtrafondos.com/wallpapers/vertical/rapidos-y-furiosos-x-11694.jpg",
+            "https://www.xtrafondos.com/wallpapers/vertical/barbie-pelicula-11707.jpg",
+            "https://www.xtrafondos.com/wallpapers/vertical/transformers-el-despertar-de-las-bestias-11696.jpg",
+            "https://www.xtrafondos.com/wallpapers/vertical/flash-11693.jpg",
+            "https://www.xtrafondos.com/wallpapers/vertical/john-wick-4-keanu-reeves-11674.jpg"
+        )
+
+        val adapter = ImageSliderAdapter(requireActivity(), imageUrls)
+        viewPager.adapter = adapter
+
         return root
     }
 

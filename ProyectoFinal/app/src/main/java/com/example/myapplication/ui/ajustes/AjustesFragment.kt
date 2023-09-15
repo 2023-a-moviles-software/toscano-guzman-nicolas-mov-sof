@@ -4,9 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentAjustesBinding
 
 class AjustesFragment : Fragment() {
@@ -22,18 +23,18 @@ class AjustesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val ajustesViewModel =
-            ViewModelProvider(this).get(AjustesViewModel::class.java)
+        val root = inflater.inflate(R.layout.cuenta, container, false)
 
-        _binding = FragmentAjustesBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        val imageProfile: ImageView = root.findViewById(R.id.image_profile)
+        val textUsername: TextView = root.findViewById(R.id.text_username)
 
-        val textView: TextView = binding.textNotifications
-        ajustesViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+        imageProfile.setImageResource(R.drawable.perfil)
+
+        textUsername.text = "Andrea Sanchez"
+
         return root
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
